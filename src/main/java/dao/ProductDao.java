@@ -94,8 +94,22 @@ public class ProductDao implements ProductDaoI{
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
+        String sql = "DELETE FROM products WHERE id = ?";
 
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            int rowsAffected = ps.executeUpdate();
+
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

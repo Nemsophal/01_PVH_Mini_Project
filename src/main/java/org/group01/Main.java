@@ -12,7 +12,7 @@ public class Main {
         ProductDaoI dao = new ProductDao();
         Pagination pagination = new Pagination();
         ProductsController pc = new ProductsController(dao, pagination);
-        UpdateDeleteController udc = new UpdateDeleteController();
+        UpdateDeleteController udc = new UpdateDeleteController(dao, pagination);
         SearchController sc = new SearchController(dao, pagination);
 
 
