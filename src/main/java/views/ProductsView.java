@@ -99,4 +99,10 @@ public class ProductsView {
     public static void showEmptyMessage() {
         System.out.println(" No products found.");
     }
+
+    public static void showSuccessMessage(String s) {
+    }
+
+    public static void showErrorMessage(String s) {
+    }
 }

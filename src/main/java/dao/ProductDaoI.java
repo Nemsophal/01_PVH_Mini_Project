@@ -31,4 +31,8 @@ public interface ProductDaoI {
     void clearUpdateBuffer();
 
     void delete(int id);
+
+    void backup(String fileName);
+
+    void restore(String fileName);
 }
