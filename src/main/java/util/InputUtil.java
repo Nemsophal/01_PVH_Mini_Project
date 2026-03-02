@@ -41,10 +41,10 @@ public class InputUtil {
 
     public static String readOptions(String p){
         System.out.print(p);
-        return sc.nextLine().trim();
+        return sc.nextLine().toUpperCase().trim();
     }
 
-    public static void pressEnterToContinue(String p){
+    public static void pressEnterToContinue(){
         System.out.print("Press Enter to Continue...");
         sc.nextLine();
     }

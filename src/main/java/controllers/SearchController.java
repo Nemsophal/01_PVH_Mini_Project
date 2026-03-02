@@ -1,4 +1,18 @@
 package controllers;
 
+import dao.ProductDaoI;
+import models.Pagination;
+
 public class SearchController {
+    private ProductDaoI dao;
+    private Pagination pagination;
+    public SearchController(ProductDaoI dao, Pagination pagination) {
+        this.dao=dao; this.pagination=pagination;
+    }
+    public void searchProduct() {
+
+    }
+    public void setNumberRow() {
+
+    }
 }
