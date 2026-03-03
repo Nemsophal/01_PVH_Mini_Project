@@ -156,7 +156,6 @@ public class ProductDao implements ProductDaoI{
 
         String dbName = extractDbName(url);
         try {
-            // Use your specific Homebrew path here
             ProcessBuilder pb = new ProcessBuilder(
                     "/opt/homebrew/bin/pg_dump",
                     "-U", user,
@@ -167,7 +166,6 @@ public class ProductDao implements ProductDaoI{
 
             Process process = pb.start();
 
-            // This part is vital: read why it failed if exit code != 0
             if (process.waitFor() == 0) {
                 System.out.println("Backup Success!");
             } else {
@@ -185,7 +183,7 @@ public class ProductDao implements ProductDaoI{
         String pass = props.getProperty("db.password");
         String url = props.getProperty("db.url");
 
-        // ADD THIS SAFETY CHECK TO PREVENT THE CRASH
+        //SAFETY CHECK TO PREVENT THE CRASH
         if (user == null || pass == null || url == null) {
             System.err.println("Restore aborted: Credentials missing from application.properties!");
             return;
@@ -205,12 +203,12 @@ public class ProductDao implements ProductDaoI{
         }
     }
 
-    // Helper to get the DB name from the URL (e.g., jdbc:postgresql://localhost:5432/stock_db)
+
     private String extractDbName(String url) {
         // Check if url is null or empty to prevent NullPointerException
         if (url == null || url.isEmpty()) {
             System.err.println("Database URL is null! Check application.properties.");
-            return "default_db"; // Return a default name so the command doesn't crash
+            return "default_db";
         }
 
         try {
