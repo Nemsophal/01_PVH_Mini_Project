@@ -1,24 +1,27 @@
 package controllers;
 
+import exceptions.Validation;
+import models.Products;
 import models.dao.ProductDaoI;
 import models.Pagination;
+import util.*;
+import views.ProductsView;
 
 import java.util.Scanner;
 
 public class UpdateDeleteController {
     private ProductDaoI dao;
     private Pagination pagination;
-    public UpdateDeleteController(ProductDaoI repo, Pagination pagination) {
+    public UpdateDeleteController(ProductDaoI dao, Pagination pagination) {
         this.dao=dao;
         this.pagination=pagination;
     }
     public void updateProduct(){
 
     }
+
     public void deleteProduct() {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter Product ID to delete: ");
         int id;
 
         while (true) {
@@ -40,6 +43,13 @@ public class UpdateDeleteController {
             }
         }
 
+        Products product = dao.findById(id);
+
+        if (product == null) {
+            System.out.println("Product with ID " + id + " does not exist.");
+            return;
+        }
+
         System.out.print("Are you sure you want to delete this product? (y/n): ");
         String confirm = scanner.next();
 
@@ -57,3 +67,4 @@ public class UpdateDeleteController {
         }
     }
 }
+
