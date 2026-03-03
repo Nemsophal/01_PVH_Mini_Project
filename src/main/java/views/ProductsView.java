@@ -9,17 +9,19 @@ import org.nocrala.tools.texttablefmt.ShownBorders;
 import org.nocrala.tools.texttablefmt.Table;
 
 import java.util.List;
+
 public class ProductsView {
 
     private static final CellStyle CENTER = new CellStyle(HorizontalAlign.CENTER);
     private static final CellStyle RIGHT = new CellStyle(HorizontalAlign.RIGHT);
     private static final CellStyle LEFT = new CellStyle(HorizontalAlign.LEFT);
+
     private static Table buildTable() {
         Table t = new Table(5,
                 BorderStyle.UNICODE_BOX_DOUBLE_BORDER,
                 ShownBorders.ALL);
         t.setColumnWidth(0, 20, 8); // ID
-        t.setColumnWidth(1, 30 , 25); // Name
+        t.setColumnWidth(1, 30, 25); // Name
         t.setColumnWidth(2, 20, 14); // Unit Price
         t.setColumnWidth(3, 20, 10); // Qty
         t.setColumnWidth(4, 20, 16); // Import Date
@@ -74,7 +76,10 @@ public class ProductsView {
 
     public static void showInsertBuffer(List<Products> list) {
         System.out.println();
-        if (list.isEmpty()) { showEmptyMessage(); return; }
+        if (list.isEmpty()) {
+            showEmptyMessage();
+            return;
+        }
         Table t = buildTable();
         addHeader(t);
         for (Products p : list) {
@@ -86,7 +91,10 @@ public class ProductsView {
 
     public static void showUpdateBuffer(List<Products> list) {
         System.out.println();
-        if (list.isEmpty()) { showEmptyMessage(); return; }
+        if (list.isEmpty()) {
+            showEmptyMessage();
+            return;
+        }
         Table t = buildTable();
         addHeader(t);
         for (Products p : list) {

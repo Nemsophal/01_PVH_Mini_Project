@@ -16,7 +16,8 @@ public class DBConnection {
     private static final String PASS = props.getProperty("db.password");
 
     //prevent object creation
-    private DBConnection() {}
+    private DBConnection() {
+    }
 
     public static Connection getConnection() throws SQLException {
 

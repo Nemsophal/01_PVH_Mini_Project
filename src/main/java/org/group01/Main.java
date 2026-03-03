@@ -6,6 +6,7 @@ import models.dao.ProductDaoI;
 import models.dao.ProductDao;
 import util.InputUtil;
 import views.MenuView;
+
 public class Main {
     public static void main(String[] args) {
         ProductDaoI dao = new ProductDao();
@@ -18,25 +19,27 @@ public class Main {
         while (true) {
             pc.displayProducts();
             MenuView.showMainMenu();
-            String choice = InputUtil.readOptions("=> Choose an option() : ");
+            String choice = InputUtil.readOptions("=> Choose an option() : ").trim().toUpperCase();
             switch (choice) {
                 case "W" -> pc.writeProduct();
                 case "R" -> pc.readProductById();
                 case "U" -> udc.updateProduct();
                 case "D" -> udc.deleteProduct();
                 case "S" -> sc.searchProduct();
-                case "Se"-> sc.setNumberRow();
-                case "si"-> svc.saveInsert();
-                case "sa" -> {
+                case "SE" -> sc.setNumberRow();
+                case "SI" -> svc.saveInsert();
+                case "SA" -> {
                     while (true) {
 
                         MenuView.showSaveMenu();
-                        String saveChoice = InputUtil.readOptions("=> Choose save option: ");
+                        String saveChoice = InputUtil.readOptions("=> Choose save option: ").trim().toUpperCase();
                         switch (saveChoice) {
-                            case "si" -> svc.saveInsert();
-                            case "su" -> svc.saveUpdate();
-                            case "B"  -> { System.out.println("Back to main menu."); }
-                            default   -> System.out.println("Invalid option.");
+                            case "SI" -> svc.saveInsert();
+                            case "SU" -> svc.saveUpdate();
+                            case "B" -> {
+                                System.out.println("Back to main menu.");
+                            }
+                            default -> System.out.println("Invalid option.");
                         }
                         if (saveChoice.equals("B")) break;
                         InputUtil.pressEnterToContinue();

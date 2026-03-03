@@ -4,20 +4,22 @@ import db.DBConnection;
 import models.Products;
 
 import java.sql.PreparedStatement;
+
 import views.ProductsView;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class ProductDao implements ProductDaoI{
+public class ProductDao implements ProductDaoI {
     private List<Products> insertBuffer = new ArrayList<>();
     private List<Products> updateBuffer = new ArrayList<>();
     // Initialize props by calling your util class
     private Properties props = util.CredentialsLoader.loadProperties();
 
-    private Products mapRow(ResultSet rs) throws SQLException{
+    private Products mapRow(ResultSet rs) throws SQLException {
         Products p = new Products();
         p.setId(rs.getInt("id"));
         p.setName(rs.getString("name"));
@@ -26,27 +28,34 @@ public class ProductDao implements ProductDaoI{
         p.setImportDate(rs.getDate("import_date").toLocalDate());
         return p;
     }
+
     @Override
     public List<Products> getAll() {
         List list = new ArrayList<>();
-        try { ResultSet rs = DBConnection.getConnection()
-                .prepareStatement("SELECT * FROM products").executeQuery();
+        try {
+            ResultSet rs = DBConnection.getConnection()
+                    .prepareStatement("SELECT * FROM products").executeQuery();
             while (rs.next()) list.add(mapRow(rs));
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             return list;
         }
         return List.of();
     }
 
-    @Override public List getByPage(int offset, int limit) {
+    @Override
+    public List getByPage(int offset, int limit) {
         List list = new ArrayList<>();
         String sql = "SELECT * FROM products ORDER BY id LIMIT ? OFFSET ?";
-        try { PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ps.setInt(1,limit); ps.setInt(2,offset);
+        try {
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, limit);
+            ps.setInt(2, offset);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) list.add(mapRow(rs));
-        } catch (SQLException e) { System.out.println(e.getMessage()); }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return list;
     }
 
@@ -62,11 +71,12 @@ public class ProductDao implements ProductDaoI{
 
     @Override
     public int getTotalRow() {
-        try { ResultSet rs = DBConnection.getConnection()
-                .prepareStatement("SELECT * FROM products").executeQuery();
+        try {
+            ResultSet rs = DBConnection.getConnection()
+                    .prepareStatement("SELECT * FROM products").executeQuery();
             if (rs.next()) return rs.getInt(1);
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return 0;
@@ -83,14 +93,21 @@ public class ProductDao implements ProductDaoI{
         return insertBuffer;
     }
 
-    @Override public void saveInsertBuffer() {
-        try { PreparedStatement ps = DBConnection.getConnection()
-                .prepareStatement("INSERT INTO products (name,unit_price,qty) VALUES (?,?,?)");
+    @Override
+    public void saveInsertBuffer() {
+        try {
+            PreparedStatement ps = DBConnection.getConnection()
+                    .prepareStatement("INSERT INTO products (name,unit_price,qty) VALUES (?,?,?)");
             for (Products p : insertBuffer) {
-                ps.setString(1,p.getName()); ps.setDouble(2,p.getUnitPrice());
-                ps.setInt(3,p.getQty()); ps.executeUpdate();
-            } clearInsertBuffer();
-        } catch (SQLException e) { System.out.println(e.getMessage()); }
+                ps.setString(1, p.getName());
+                ps.setDouble(2, p.getUnitPrice());
+                ps.setInt(3, p.getQty());
+                ps.executeUpdate();
+            }
+            clearInsertBuffer();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
