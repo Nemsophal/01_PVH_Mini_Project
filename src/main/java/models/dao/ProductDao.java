@@ -52,8 +52,12 @@ public class ProductDao implements ProductDaoI{
         return list;
     }
 
-    @Override
-    public Products findById(int id) {
+    @Override public Products findById(int id) {
+        try { PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("SELECT * FROM products WHERE id=?");
+            ps.setInt(1,id); ResultSet rs = ps.executeQuery();
+            if (rs.next()) return mapRow(rs);
+        } catch (SQLException e) { System.out.println(e.getMessage()); }
         return null;
     }
 
@@ -107,8 +111,9 @@ public class ProductDao implements ProductDaoI{
     }
 
     @Override
-    public void addToUpdateBuffer(Products p) {
-
+    public void addToUpdateBuffer(Products product) {
+        updateBuffer.removeIf(p -> p.getId() == product.getId());
+        updateBuffer.add(product);
     }
 
     @Override public List getUpdateBuffer() { return updateBuffer; }
