@@ -14,6 +14,8 @@ public interface ProductDaoI {
 
     int getTotalRow();
 
+    int getSpecificPage(int p);
+
     void addToInsertBuffer(Products p);
 
     List<Products> getInsertBuffer();
@@ -30,7 +32,7 @@ public interface ProductDaoI {
 
     void clearUpdateBuffer();
 
-    void delete(int id);
+    boolean delete(int id);
 
     void backup(String fileName);
 

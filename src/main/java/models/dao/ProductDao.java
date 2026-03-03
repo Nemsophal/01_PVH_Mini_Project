@@ -3,6 +3,7 @@ package models.dao;
 import db.DBConnection;
 import models.Products;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import views.ProductsView;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class ProductDao implements ProductDaoI{
     private List<Products> insertBuffer = new ArrayList<>();
@@ -63,13 +65,19 @@ public class ProductDao implements ProductDaoI{
     @Override
     public int getTotalRow() {
         try { ResultSet rs = DBConnection.getConnection()
-                .prepareStatement("SELECT * FROM products").executeQuery();
+                .prepareStatement("SELECT COUNT(*) FROM products").executeQuery();
             if (rs.next()) return rs.getInt(1);
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
         return 0;
+    }
+
+    @Override
+    public int getSpecificPage(int p) {
+        System.out.print("Page number: ");
+        return new Scanner(System.in).nextInt();
     }
 
     @Override
@@ -103,24 +111,36 @@ public class ProductDao implements ProductDaoI{
 
     }
 
-    @Override
-    public List<Products> getUpdateBuffer() {
-        return List.of();
+    @Override public List getUpdateBuffer() { return updateBuffer; }
+
+    @Override public void saveUpdateBuffer() {
+        try { PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("UPDATE products SET name=?,unit_price=?,qty=? WHERE id=?");
+            for (Products p : updateBuffer) {
+                ps.setString(1,p.getName()); ps.setDouble(2,p.getUnitPrice());
+                ps.setInt(3,p.getQty()); ps.setInt(4,p.getId()); ps.executeUpdate();
+            } clearUpdateBuffer();
+        } catch (SQLException e) { System.out.println(e.getMessage()); }
     }
 
-    @Override
-    public void saveUpdateBuffer() {
-
-    }
 
     @Override
     public void clearUpdateBuffer() {
 
     }
 
-    @Override
-    public void delete(int id) {
 
+    @Override
+    public boolean delete(int id) {
+        try (PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("DELETE FROM products WHERE id=?")) {
+            ps.setInt(1,id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
     @Override

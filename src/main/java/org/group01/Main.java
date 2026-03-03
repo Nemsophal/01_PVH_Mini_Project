@@ -6,14 +6,18 @@ import models.dao.ProductDaoI;
 import models.dao.ProductDao;
 import util.InputUtil;
 import views.MenuView;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         ProductDaoI dao = new ProductDao();
         Pagination pagination = new Pagination();
         ProductsController pc = new ProductsController(dao, pagination);
-        UpdateDeleteController udc = new UpdateDeleteController();
+        UpdateDeleteController udc = new UpdateDeleteController(dao, pagination);
         SearchController sc = new SearchController(dao, pagination);
         SaveController svc = new SaveController(dao);
+
 
         while (true) {
             pc.displayProducts();
@@ -35,21 +39,39 @@ public class Main {
                         switch (saveChoice) {
                             case "si" -> svc.saveInsert();
                             case "su" -> svc.saveUpdate();
-                            case "B"  -> { System.out.println("Back to main menu."); }
+                            case "B"  -> System.out.println("Back to main menu.");
                             default   -> System.out.println("Invalid option.");
                         }
                         if (saveChoice.equals("B")) break;
                         InputUtil.pressEnterToContinue();
                     }
                 }
+                case "Un" -> {
+                    while (true) {
+
+                        MenuView.showUnSaveMenu();
+                        String unSaveChoice = InputUtil.readOptions("=> Choose unsave option: ");
+                        switch (unSaveChoice) {
+                            case "ui" -> svc.unsaveInsert();
+                            case "uu" -> svc.unsaveUpdate();
+                            case "b"  -> { System.out.println("Back to main menu."); }
+                            default   -> System.out.println("Invalid option.");
+                        }
+                        if (unSaveChoice.equals("b")) break;
+                        InputUtil.pressEnterToContinue();
+                    }
+                }
 //                case "su"-> svc.saveUpdate();
 //                case "ui"-> svc.unsaveInsert();
 //                case "uu"-> svc.unsaveUpdate();
-//                case "N" -> pgc.goNext();
-//                case "P" -> pgc.goPrev();
-//                case "F" -> pgc.goFirst();
-//                case "L" -> pgc.goLast();
-//                case "G" -> pgc.goToSpecificPage();
+                case "N" -> pagination.goNext();
+                case "P" -> pagination.goPrev();
+                case "F" -> pagination.goFirst();
+                case "L" -> pagination.goLast();
+                case "G" -> {
+                    System.out.print("Page number: ");
+                    pagination.goToPage(new Scanner(System.in).nextInt());
+                }
 //                case "Ba"-> bc.backup();
 //                case "Re"-> bc.restore();
 //                case "Rc"-> bc.recovery();

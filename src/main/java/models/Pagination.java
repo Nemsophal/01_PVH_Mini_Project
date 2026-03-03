@@ -21,7 +21,7 @@ public class Pagination {
 
     public void goPrev() { if(!isFirstPage()) currentPage--; }
 
-    public void goToPage(int p) { if(p>=1 && p <=totalPage) currentPage=p; }
+    public void goToPage(int p) { if(p >= 1 && p <= totalPage) currentPage = p; }
 
     public int getCurrentPage() { return currentPage; }
 
