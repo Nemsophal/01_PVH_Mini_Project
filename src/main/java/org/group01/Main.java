@@ -6,6 +6,9 @@ import models.dao.ProductDaoI;
 import models.dao.ProductDao;
 import util.InputUtil;
 import views.MenuView;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         ProductDaoI dao = new ProductDao();
@@ -36,7 +39,7 @@ public class Main {
                         switch (saveChoice) {
                             case "si" -> svc.saveInsert();
                             case "su" -> svc.saveUpdate();
-                            case "B"  -> { System.out.println("Back to main menu."); }
+                            case "B"  -> System.out.println("Back to main menu.");
                             default   -> System.out.println("Invalid option.");
                         }
                         if (saveChoice.equals("B")) break;
@@ -50,7 +53,10 @@ public class Main {
                 case "P" -> pagination.goPrev();
                 case "F" -> pagination.goFirst();
                 case "L" -> pagination.goLast();
-//                case "G" -> pagination.goToPage();
+                case "G" -> {
+                    System.out.print("Page number: ");
+                    pagination.goToPage(new Scanner(System.in).nextInt());
+                }
 //                case "Ba"-> bc.backup();
 //                case "Re"-> bc.restore();
 //                case "Rc"-> bc.recovery();

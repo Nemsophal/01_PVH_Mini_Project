@@ -14,6 +14,8 @@ public interface ProductDaoI {
 
     int getTotalRow();
 
+    int getSpecificPage(int p);
+
     void addToInsertBuffer(Products p);
 
     List<Products> getInsertBuffer();

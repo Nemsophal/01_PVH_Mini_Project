@@ -3,6 +3,7 @@ package models.dao;
 import db.DBConnection;
 import models.Products;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import views.ProductsView;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class ProductDao implements ProductDaoI{
     private List<Products> insertBuffer = new ArrayList<>();
@@ -70,6 +72,12 @@ public class ProductDao implements ProductDaoI{
             System.out.println(e.getMessage());
         }
         return 0;
+    }
+
+    @Override
+    public int getSpecificPage(int p) {
+        System.out.print("Page number: ");
+        return new Scanner(System.in).nextInt();
     }
 
     @Override
