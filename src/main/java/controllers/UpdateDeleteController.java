@@ -1,6 +1,6 @@
 package controllers;
 
-import dao.ProductDaoI;
+import models.dao.ProductDaoI;
 import models.Pagination;
 
 import java.util.Scanner;

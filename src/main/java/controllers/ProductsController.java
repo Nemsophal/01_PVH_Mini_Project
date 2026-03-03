@@ -1,14 +1,12 @@
 package controllers;
 
-import dao.ProductDao;
-import dao.ProductDaoI;
+import models.dao.ProductDaoI;
 import exceptions.Validation;
 import models.Pagination;
 import models.Products;
 import util.InputUtil;
 import views.ProductsView;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class ProductsController {

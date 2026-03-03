@@ -1,7 +1,6 @@
 package controllers;
 
-import models.Products;
-import dao.ProductDaoI;
+import models.dao.ProductDaoI;
 import views.ProductsView;
 
 import java.util.List;

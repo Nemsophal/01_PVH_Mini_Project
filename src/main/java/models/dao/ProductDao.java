@@ -1,9 +1,8 @@
-package dao;
+package models.dao;
 
 import db.DBConnection;
 import models.Products;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import views.ProductsView;
 import java.sql.ResultSet;
