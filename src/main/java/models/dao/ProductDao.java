@@ -3,6 +3,7 @@ package models.dao;
 import db.DBConnection;
 import models.Products;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import views.ProductsView;
 import java.sql.ResultSet;
@@ -121,9 +122,18 @@ public class ProductDao implements ProductDaoI{
 
     }
 
-    @Override
-    public void delete(int id) {
 
+    @Override
+    public boolean delete(int id) {
+        try (PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("DELETE FROM products WHERE id=?")) {
+            ps.setInt(1,id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
     @Override
