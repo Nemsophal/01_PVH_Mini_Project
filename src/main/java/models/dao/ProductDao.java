@@ -63,7 +63,7 @@ public class ProductDao implements ProductDaoI{
     @Override
     public int getTotalRow() {
         try { ResultSet rs = DBConnection.getConnection()
-                .prepareStatement("SELECT * FROM products").executeQuery();
+                .prepareStatement("SELECT COUNT(*) FROM products").executeQuery();
             if (rs.next()) return rs.getInt(1);
 
         }catch (SQLException e){

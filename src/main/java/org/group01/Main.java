@@ -15,6 +15,7 @@ public class Main {
         SearchController sc = new SearchController(dao, pagination);
         SaveController svc = new SaveController(dao);
 
+
         while (true) {
             pc.displayProducts();
             MenuView.showMainMenu();
@@ -45,11 +46,11 @@ public class Main {
 //                case "su"-> svc.saveUpdate();
 //                case "ui"-> svc.unsaveInsert();
 //                case "uu"-> svc.unsaveUpdate();
-//                case "N" -> pgc.goNext();
-//                case "P" -> pgc.goPrev();
-//                case "F" -> pgc.goFirst();
-//                case "L" -> pgc.goLast();
-//                case "G" -> pgc.goToSpecificPage();
+                case "N" -> pagination.goNext();
+                case "P" -> pagination.goPrev();
+                case "F" -> pagination.goFirst();
+                case "L" -> pagination.goLast();
+//                case "G" -> pagination.goToPage();
 //                case "Ba"-> bc.backup();
 //                case "Re"-> bc.restore();
 //                case "Rc"-> bc.recovery();
