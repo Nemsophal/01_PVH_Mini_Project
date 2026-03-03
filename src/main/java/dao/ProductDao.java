@@ -29,13 +29,26 @@ public class ProductDao implements ProductDaoI{
     }
     @Override
     public List<Products> getAll() {
-
+        List list = new ArrayList<>();
+        try { ResultSet rs = DBConnection.getConnection()
+                .prepareStatement("SELECT * FROM products").executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return list;
+        }
         return List.of();
     }
 
-    @Override
-    public List<Products> getByPage(int offset, int limit) {
-        return List.of();
+    @Override public List getByPage(int offset, int limit) {
+        List list = new ArrayList<>();
+        String sql = "SELECT * FROM products ORDER BY id LIMIT ? OFFSET ?";
+        try { PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setInt(1,limit); ps.setInt(2,offset);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        } catch (SQLException e) { System.out.println(e.getMessage()); }
+        return list;
     }
 
     @Override
@@ -50,22 +63,35 @@ public class ProductDao implements ProductDaoI{
 
     @Override
     public int getTotalRow() {
+        try { ResultSet rs = DBConnection.getConnection()
+                .prepareStatement("SELECT * FROM products").executeQuery();
+            if (rs.next()) return rs.getInt(1);
+
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
         return 0;
     }
 
     @Override
     public void addToInsertBuffer(Products p) {
+        insertBuffer.add(p);
 
     }
 
     @Override
     public List<Products> getInsertBuffer() {
-        return List.of();
+        return insertBuffer;
     }
 
-    @Override
-    public void saveInsertBuffer() {
-
+    @Override public void saveInsertBuffer() {
+        try { PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("INSERT INTO products (name,unit_price,qty) VALUES (?,?,?)");
+            for (Products p : insertBuffer) {
+                ps.setString(1,p.getName()); ps.setDouble(2,p.getUnitPrice());
+                ps.setInt(3,p.getQty()); ps.executeUpdate();
+            } clearInsertBuffer();
+        } catch (SQLException e) { System.out.println(e.getMessage()); }
     }
 
     @Override

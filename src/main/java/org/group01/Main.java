@@ -14,7 +14,7 @@ public class Main {
         ProductsController pc = new ProductsController(dao, pagination);
         UpdateDeleteController udc = new UpdateDeleteController(dao, pagination);
         SearchController sc = new SearchController(dao, pagination);
-
+        SaveController svc = new SaveController(dao);
 
         while (true) {
             pc.displayProducts();
@@ -27,7 +27,22 @@ public class Main {
                 case "D" -> udc.deleteProduct();
                 case "S" -> sc.searchProduct();
                 case "Se"-> sc.setNumberRow();
-//                case "si"-> svc.saveInsert();
+                case "si"-> svc.saveInsert();
+                case "sa" -> {
+                    while (true) {
+
+                        MenuView.showSaveMenu();
+                        String saveChoice = InputUtil.readOptions("=> Choose save option: ");
+                        switch (saveChoice) {
+                            case "si" -> svc.saveInsert();
+                            case "su" -> svc.saveUpdate();
+                            case "B"  -> { System.out.println("Back to main menu."); }
+                            default   -> System.out.println("Invalid option.");
+                        }
+                        if (saveChoice.equals("B")) break;
+                        InputUtil.pressEnterToContinue();
+                    }
+                }
 //                case "su"-> svc.saveUpdate();
 //                case "ui"-> svc.unsaveInsert();
 //                case "uu"-> svc.unsaveUpdate();
