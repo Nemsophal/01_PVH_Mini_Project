@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class ProductDao implements ProductDaoI{
     private List<Products> insertBuffer = new ArrayList<>();
@@ -64,13 +65,19 @@ public class ProductDao implements ProductDaoI{
     @Override
     public int getTotalRow() {
         try { ResultSet rs = DBConnection.getConnection()
-                .prepareStatement("SELECT * FROM products").executeQuery();
+                .prepareStatement("SELECT COUNT(*) FROM products").executeQuery();
             if (rs.next()) return rs.getInt(1);
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
         return 0;
+    }
+
+    @Override
+    public int getSpecificPage(int p) {
+        System.out.print("Page number: ");
+        return new Scanner(System.in).nextInt();
     }
 
     @Override
