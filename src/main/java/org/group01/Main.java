@@ -1,10 +1,9 @@
 package org.group01;
 
 import controllers.*;
-import db.DBConnection;
 import models.Pagination;
-import dao.ProductDaoI;
-import dao.ProductDao;
+import models.dao.ProductDaoI;
+import models.dao.ProductDao;
 import util.InputUtil;
 import views.MenuView;
 public class Main {
