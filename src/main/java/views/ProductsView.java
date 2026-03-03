@@ -17,7 +17,7 @@ public class ProductsView {
     private static Table buildTable() {
         Table t = new Table(5,
                 BorderStyle.UNICODE_BOX_DOUBLE_BORDER,
-                ShownBorders.SURROUND_HEADER_FOOTER_AND_COLUMNS);
+                ShownBorders.ALL);
         t.setColumnWidth(0, 20, 8); // ID
         t.setColumnWidth(1, 30 , 25); // Name
         t.setColumnWidth(2, 20, 14); // Unit Price

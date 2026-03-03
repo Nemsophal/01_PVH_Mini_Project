@@ -41,7 +41,7 @@ public class InputUtil {
 
     public static String readOptions(String p){
         System.out.print(p);
-        return sc.nextLine().toUpperCase().trim();
+        return sc.nextLine().trim();
     }
 
     public static void pressEnterToContinue(){

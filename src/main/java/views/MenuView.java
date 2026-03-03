@@ -14,4 +14,13 @@ public class MenuView {
         System.out.println("Goodbye! See you next time :)");
         System.out.println();
     }
+    public static void showSaveMenu() {
+        System.out.println("╔══════════════════════════════╗");
+        System.out.println("║          SAVE MENU           ║");
+        System.out.println("╠══════════════════════════════╣");
+        System.out.println("║  [si] Save Insert            ║");
+        System.out.println("║  [su] Save Update            ║");
+        System.out.println("║  [B]  Back                   ║");
+        System.out.println("╚══════════════════════════════╝");
+    }
 }
