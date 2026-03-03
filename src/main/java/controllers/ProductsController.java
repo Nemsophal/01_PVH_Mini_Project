@@ -23,13 +23,22 @@ public class ProductsController {
     }
     public void writeProduct(){
         try {
+            int nextId = dao.getNextId();
+            System.out.println("Product ID: " + nextId);
             String name = InputUtil.readNonEmpty("Enter Name: ");
             double price = InputUtil.readDouble("Enter Unit Price: ");
             int qty = InputUtil.readInt("Enter qty: ");
+
             if (name.isEmpty()) throw Validation.emptyName();
             if (price <= 0) throw Validation.invalidPrice();
             if (qty <= 0) throw Validation.invalidQty();
-            dao.addToInsertBuffer(new Products(name, price, qty));
+            Products newProduct = new Products(name, price, qty);
+            //add time
+            newProduct.setImportDate(java.time.LocalDate.now());
+            //add nextId
+            newProduct.setId(nextId);
+            dao.addToInsertBuffer(newProduct);
+
             ProductsView.showSuccessMessage("Add to buffer | use si");
         }catch (Validation e){
             ProductsView.showErrorMessage(e.getMessage());

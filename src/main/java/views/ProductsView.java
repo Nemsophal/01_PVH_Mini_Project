@@ -35,10 +35,11 @@ public class ProductsView {
     }
 
     private static void addProductRow(Table t, Products p) {
-        t.addCell(String.valueOf(p.getId()), RIGHT);
-        t.addCell(p.getName(), LEFT);
-        t.addCell(String.format("%.2f", p.getUnitPrice()), RIGHT);
-        t.addCell(String.valueOf(p.getQty()), RIGHT);
+        // Change all styles to CENTER
+        t.addCell(String.valueOf(p.getId()), CENTER);
+        t.addCell(p.getName(), CENTER);
+        t.addCell(String.format("%.2f", p.getUnitPrice()), CENTER);
+        t.addCell(String.valueOf(p.getQty()), CENTER);
         t.addCell(p.getImportDate() != null
                 ? p.getImportDate().toString() : "-", CENTER);
     }
@@ -76,6 +77,7 @@ public class ProductsView {
         System.out.println();
         if (list.isEmpty()) { showEmptyMessage(); return; }
         Table t = buildTable();
+        t.addCell(" PENDING PRODUCTS (UNSAVED) ", CENTER, 6);
         addHeader(t);
         for (Products p : list) {
             addProductRow(t, p);
@@ -88,6 +90,7 @@ public class ProductsView {
         System.out.println();
         if (list.isEmpty()) { showEmptyMessage(); return; }
         Table t = buildTable();
+        t.addCell(" UPDATED PRODUCTS (UNSAVED) ", CENTER, 6);
         addHeader(t);
         for (Products p : list) {
             addProductRow(t, p);

@@ -16,7 +16,6 @@ import java.util.Scanner;
 public class ProductDao implements ProductDaoI{
     private List<Products> insertBuffer = new ArrayList<>();
     private List<Products> updateBuffer = new ArrayList<>();
-    // Initialize props by calling your util class
     private Properties props = util.CredentialsLoader.loadProperties();
 
     private Products mapRow(ResultSet rs) throws SQLException{
@@ -85,7 +84,23 @@ public class ProductDao implements ProductDaoI{
         insertBuffer.add(p);
 
     }
+    @Override
+    public int getNextId() {
+        int maxId = 0;
+        try (Connection conn = DBConnection.getConnection();
+             ResultSet rs = conn.prepareStatement("SELECT MAX(id) FROM products").executeQuery()) {
+            if (rs.next()) {
+                maxId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
+        for (Products p : insertBuffer) {
+            if (p.getId() > maxId) maxId = p.getId();
+        }
+        return maxId + 1;
+    }
     @Override
     public List<Products> getInsertBuffer() {
         return insertBuffer;
