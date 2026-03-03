@@ -42,6 +42,21 @@ public class Main {
                         InputUtil.pressEnterToContinue();
                     }
                 }
+                case "Un" -> {
+                    while (true) {
+
+                        MenuView.showUnSaveMenu();
+                        String unSaveChoice = InputUtil.readOptions("=> Choose unsave option: ");
+                        switch (unSaveChoice) {
+                            case "ui" -> svc.unsaveInsert();
+                            case "uu" -> svc.unsaveUpdate();
+                            case "b"  -> { System.out.println("Back to main menu."); }
+                            default   -> System.out.println("Invalid option.");
+                        }
+                        if (unSaveChoice.equals("b")) break;
+                        InputUtil.pressEnterToContinue();
+                    }
+                }
 //                case "su"-> svc.saveUpdate();
 //                case "ui"-> svc.unsaveInsert();
 //                case "uu"-> svc.unsaveUpdate();
