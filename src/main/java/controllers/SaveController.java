@@ -18,8 +18,8 @@ public class SaveController {
             System.out.println("empty");
             return;
         }
-        ProductsView.showInsertBuffer(buf);
         dao.saveInsertBuffer();
+        ProductsView.showInserted(buf);
         ProductsView.showSuccessMessage("All new products saved to database!");
     }
 
