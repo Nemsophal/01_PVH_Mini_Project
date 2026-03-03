@@ -14,7 +14,7 @@ public class Main {
         ProductDaoI dao = new ProductDao();
         Pagination pagination = new Pagination();
         ProductsController pc = new ProductsController(dao, pagination);
-        UpdateDeleteController udc = new UpdateDeleteController();
+        UpdateDeleteController udc = new UpdateDeleteController(dao, pagination);
         SearchController sc = new SearchController(dao, pagination);
         SaveController svc = new SaveController(dao);
 
@@ -43,6 +43,21 @@ public class Main {
                             default   -> System.out.println("Invalid option.");
                         }
                         if (saveChoice.equals("B")) break;
+                        InputUtil.pressEnterToContinue();
+                    }
+                }
+                case "Un" -> {
+                    while (true) {
+
+                        MenuView.showUnSaveMenu();
+                        String unSaveChoice = InputUtil.readOptions("=> Choose unsave option: ");
+                        switch (unSaveChoice) {
+                            case "ui" -> svc.unsaveInsert();
+                            case "uu" -> svc.unsaveUpdate();
+                            case "b"  -> { System.out.println("Back to main menu."); }
+                            default   -> System.out.println("Invalid option.");
+                        }
+                        if (unSaveChoice.equals("b")) break;
                         InputUtil.pressEnterToContinue();
                     }
                 }

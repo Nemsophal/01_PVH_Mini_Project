@@ -23,4 +23,13 @@ public class MenuView {
         System.out.println("║  [B]  Back                   ║");
         System.out.println("╚══════════════════════════════╝");
     }
+    public static void showUnSaveMenu() {
+        System.out.println("╔══════════════════════════════╗");
+        System.out.println("║          UNSAVE MENU         ║");
+        System.out.println("╠══════════════════════════════╣");
+        System.out.println("║  [ui] UnSave Insert          ║");
+        System.out.println("║  [uu] UnSave Update          ║");
+        System.out.println("║  [b]  Back                   ║");
+        System.out.println("╚══════════════════════════════╝");
+    }
 }

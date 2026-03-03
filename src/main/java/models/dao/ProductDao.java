@@ -111,24 +111,36 @@ public class ProductDao implements ProductDaoI{
 
     }
 
-    @Override
-    public List<Products> getUpdateBuffer() {
-        return List.of();
+    @Override public List getUpdateBuffer() { return updateBuffer; }
+
+    @Override public void saveUpdateBuffer() {
+        try { PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("UPDATE products SET name=?,unit_price=?,qty=? WHERE id=?");
+            for (Products p : updateBuffer) {
+                ps.setString(1,p.getName()); ps.setDouble(2,p.getUnitPrice());
+                ps.setInt(3,p.getQty()); ps.setInt(4,p.getId()); ps.executeUpdate();
+            } clearUpdateBuffer();
+        } catch (SQLException e) { System.out.println(e.getMessage()); }
     }
 
-    @Override
-    public void saveUpdateBuffer() {
-
-    }
 
     @Override
     public void clearUpdateBuffer() {
 
     }
 
-    @Override
-    public void delete(int id) {
 
+    @Override
+    public boolean delete(int id) {
+        try (PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("DELETE FROM products WHERE id=?")) {
+            ps.setInt(1,id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
     @Override
