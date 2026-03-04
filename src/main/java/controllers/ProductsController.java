@@ -44,23 +44,6 @@ public class ProductsController {
 
     }
     public void readProductById(){
-        try {
-            int id = InputUtil.readInt("Enter Product ID: ");
 
-            if (id <= 0) {
-                throw new Validation("Invalid Product ID!");
-            }
-
-            Products product = dao.findById(id);
-
-            if (product == null) {
-                throw new Validation("Product not found!");
-            }
-
-//            ProductsView.displayProduct(product);
-
-        } catch (Validation e) {
-            ProductsView.showErrorMessage(e.getMessage());
-        }
     }
 }
