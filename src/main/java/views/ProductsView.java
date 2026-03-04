@@ -71,7 +71,18 @@ public class ProductsView {
         System.out.println(t.render());
         System.out.println();
     }
-
+    public static void showInserted(List<Products> list) {
+        System.out.println();
+        if (list.isEmpty()) { showEmptyMessage(); return; }
+        Table t = buildTable();
+        t.addCell(" INSERTED TO PRODUCTS", CENTER, 6);
+        addHeader(t);
+        for (Products p : list) {
+            addProductRow(t, p);
+        }
+        System.out.println(t.render());
+        System.out.println();
+    }
     public static void showInsertBuffer(List<Products> list) {
         System.out.println();
         if (list.isEmpty()) { showEmptyMessage(); return; }

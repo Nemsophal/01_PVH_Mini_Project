@@ -38,8 +38,6 @@ public class ProductsController {
             //add nextId
             newProduct.setId(nextId);
             dao.addToInsertBuffer(newProduct);
-
-            ProductsView.showSuccessMessage("Add to buffer | use si");
         }catch (Validation e){
             ProductsView.showErrorMessage(e.getMessage());
         }
