@@ -11,6 +11,8 @@ import org.nocrala.tools.texttablefmt.Table;
 import java.util.List;
 public class ProductsView {
 
+    public static final String BLUE = "\u001B[34m";
+    public static final String RESET = "\u001B[0m";
     private static final CellStyle CENTER = new CellStyle(HorizontalAlign.CENTER);
     private static final CellStyle RIGHT = new CellStyle(HorizontalAlign.RIGHT);
     private static final CellStyle LEFT = new CellStyle(HorizontalAlign.LEFT);
@@ -27,11 +29,11 @@ public class ProductsView {
     }
 
     private static void addHeader(Table t) {
-        t.addCell("ID", CENTER);
-        t.addCell("Name", CENTER);
-        t.addCell("Unit Price", CENTER);
-        t.addCell("Qty", CENTER);
-        t.addCell("Import Date", CENTER);
+        t.addCell(BLUE + "ID" + RESET, CENTER);
+        t.addCell(BLUE + "Name" + RESET, CENTER);
+        t.addCell(BLUE + "Unit Price" + RESET, CENTER);
+        t.addCell(BLUE + "Qty" + RESET, CENTER);
+        t.addCell(BLUE + "Import Date" + RESET, CENTER);
     }
 
     private static void addProductRow(Table t, Products p) {
