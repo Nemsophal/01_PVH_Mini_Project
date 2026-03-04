@@ -45,12 +45,14 @@ public class BackupController {
             long kb = files[i].length() / 1024;
             System.out.println((i + 1) + ". " + files[i].getName() + " (" + kb + " KB)");
         }
-        int choice = util.InputUtil.readInt("Select version: ");
-        if (choice > 0 && choice <= files.length) {
-            File selected = files[choice - 1];
-
-
-            dao.restore(selected.getPath());
+        int choice;
+        while (true) {
+            choice = util.InputUtil.readInt("Select version: ");
+            if (choice >= 1 && choice <= files.length) {
+                break;
+            }
+            System.out.println("Invalid choice.");
         }
+        dao.restore(files[choice - 1].getPath());
     }
 }
