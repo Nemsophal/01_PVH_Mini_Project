@@ -30,8 +30,8 @@ public class ProductsController {
             int qty = InputUtil.readInt("Enter qty: ");
 
             if (name.isEmpty()) throw Validation.emptyName();
-            if (price <= 0) throw Validation.invalidPrice();
-            if (qty <= 0) throw Validation.invalidQty();
+            if (price < 0) throw Validation.invalidPrice();
+            if (qty < 0) throw Validation.invalidQty();
             Products newProduct = new Products(name, price, qty);
             //add time
             newProduct.setImportDate(java.time.LocalDate.now());
