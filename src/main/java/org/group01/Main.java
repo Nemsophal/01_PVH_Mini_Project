@@ -5,6 +5,7 @@ import models.Pagination;
 import models.dao.ProductDaoI;
 import models.dao.ProductDao;
 import util.InputUtil;
+import views.Color;
 import views.MenuView;
 
 import java.util.Scanner;
@@ -22,7 +23,7 @@ public class Main {
         while (true) {
             pc.displayProducts();
             MenuView.showMainMenu();
-            String choice = InputUtil.readOptions("=> Choose an option() : ").trim().toUpperCase();
+            String choice = InputUtil.readOptions(Color.YELLOW.code() + "=> Choose an option() : " + Color.RESET.code()).trim().toUpperCase();
             switch (choice) {
                 case "W" -> pc.writeProduct();
                 case "R" -> pc.readProductById();
@@ -35,18 +36,18 @@ public class Main {
                     while (true) {
 
                         MenuView.showSaveMenu();
-                        String saveChoice = InputUtil.readOptions("=> Choose save option: ").trim().toUpperCase();
+                        String saveChoice = InputUtil.readOptions("=> Choose save option: ").trim().toLowerCase();
                         switch (saveChoice) {
-                            case "SI" -> svc.saveInsert();
-                            case "SU" -> svc.saveUpdate();
-                            case "B"  -> System.out.println("Back to main menu.");
+                            case "si" -> svc.saveInsert();
+                            case "su" -> svc.saveUpdate();
+                            case "b"  -> System.out.println("Back to main menu.");
                             default   -> System.out.println("Invalid option.");
                         }
                         if (saveChoice.equals("B")) break;
                         InputUtil.pressEnterToContinue();
                     }
                 }
-                case "Un" -> {
+                case "UN" -> {
                     while (true) {
 
                         MenuView.showUnSaveMenu();
@@ -81,7 +82,6 @@ public class Main {
                 }
                 default -> System.out.println(" Invalid option.");
             }
-            InputUtil.pressEnterToContinue();
         }
     }
 }
