@@ -117,5 +117,6 @@ public class ProductsView {
     }
 
     public static void showErrorMessage(String s) {
+        System.out.println("Error: " + s);
     }
 }

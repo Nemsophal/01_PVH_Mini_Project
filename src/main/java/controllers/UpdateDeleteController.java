@@ -233,11 +233,14 @@ public class UpdateDeleteController {
 
             if (deleted) {
                 System.out.println("Product deleted successfully.");
+                InputUtil.pressEnterToContinue();
             } else {
                 System.out.println("Product not found.");
+                InputUtil.pressEnterToContinue();
             }
         } else {
             System.out.println("Deletion cancelled.");
+            InputUtil.pressEnterToContinue();
         }
     }
 }
