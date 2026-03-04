@@ -5,6 +5,7 @@ import models.Pagination;
 import models.dao.ProductDaoI;
 import models.dao.ProductDao;
 import util.InputUtil;
+import views.Color;
 import views.MenuView;
 
 import java.util.Scanner;
@@ -22,35 +23,35 @@ public class Main {
         while (true) {
             pc.displayProducts();
             MenuView.showMainMenu();
-            String choice = InputUtil.readOptions("=> Choose an option() : ");
+            String choice = InputUtil.readOptions(Color.YELLOW.code() + "=> Choose an option() : " + Color.RESET.code()).trim().toUpperCase();
             switch (choice) {
                 case "W" -> pc.writeProduct();
                 case "R" -> pc.readProductById();
                 case "U" -> udc.updateProduct();
                 case "D" -> udc.deleteProduct();
                 case "S" -> sc.searchProduct();
-                case "Se"-> sc.setNumberRow();
-                case "si"-> svc.saveInsert();
-                case "sa" -> {
+                case "SE"-> sc.setNumberRow();
+                case "SI"-> svc.saveInsert();
+                case "SA" -> {
                     while (true) {
 
                         MenuView.showSaveMenu();
-                        String saveChoice = InputUtil.readOptions("=> Choose save option: ");
+                        String saveChoice = InputUtil.readOptions("=> Choose save option: ").trim().toLowerCase();
                         switch (saveChoice) {
                             case "si" -> svc.saveInsert();
                             case "su" -> svc.saveUpdate();
-                            case "B"  -> System.out.println("Back to main menu.");
+                            case "b"  -> System.out.println("Back to main menu.");
                             default   -> System.out.println("Invalid option.");
                         }
                         if (saveChoice.equals("B")) break;
                         InputUtil.pressEnterToContinue();
                     }
                 }
-                case "Un" -> {
+                case "UN" -> {
                     while (true) {
 
                         MenuView.showUnSaveMenu();
-                        String unSaveChoice = InputUtil.readOptions("=> Choose unsave option: ");
+                        String unSaveChoice = InputUtil.readOptions("=> Choose unsave option: ").trim().toLowerCase();
                         switch (unSaveChoice) {
                             case "ui" -> svc.unsaveInsert();
                             case "uu" -> svc.unsaveUpdate();
@@ -81,7 +82,6 @@ public class Main {
                 }
                 default -> System.out.println(" Invalid option.");
             }
-            InputUtil.pressEnterToContinue();
         }
     }
 }
