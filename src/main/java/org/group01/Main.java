@@ -22,23 +22,23 @@ public class Main {
         while (true) {
             pc.displayProducts();
             MenuView.showMainMenu();
-            String choice = InputUtil.readOptions("=> Choose an option() : ");
+            String choice = InputUtil.readOptions("=> Choose an option() : ").trim().toUpperCase();
             switch (choice) {
                 case "W" -> pc.writeProduct();
                 case "R" -> pc.readProductById();
                 case "U" -> udc.updateProduct();
                 case "D" -> udc.deleteProduct();
                 case "S" -> sc.searchProduct();
-                case "Se"-> sc.setNumberRow();
-                case "si"-> svc.saveInsert();
-                case "sa" -> {
+                case "SE"-> sc.setNumberRow();
+                case "SI"-> svc.saveInsert();
+                case "SA" -> {
                     while (true) {
 
                         MenuView.showSaveMenu();
-                        String saveChoice = InputUtil.readOptions("=> Choose save option: ");
+                        String saveChoice = InputUtil.readOptions("=> Choose save option: ").trim().toUpperCase();
                         switch (saveChoice) {
-                            case "si" -> svc.saveInsert();
-                            case "su" -> svc.saveUpdate();
+                            case "SI" -> svc.saveInsert();
+                            case "SU" -> svc.saveUpdate();
                             case "B"  -> System.out.println("Back to main menu.");
                             default   -> System.out.println("Invalid option.");
                         }
@@ -50,7 +50,7 @@ public class Main {
                     while (true) {
 
                         MenuView.showUnSaveMenu();
-                        String unSaveChoice = InputUtil.readOptions("=> Choose unsave option: ");
+                        String unSaveChoice = InputUtil.readOptions("=> Choose unsave option: ").trim().toLowerCase();
                         switch (unSaveChoice) {
                             case "ui" -> svc.unsaveInsert();
                             case "uu" -> svc.unsaveUpdate();
