@@ -29,4 +29,8 @@ public class Validation extends Exceptions {
     public static Validation invalidRowCount() {
         return new Validation("Row count must be at least 1!");
     }
+
+    public static Validation invalidNameFormat() {
+        return new Validation("Name cannot contain special characters!");
+    }
 }

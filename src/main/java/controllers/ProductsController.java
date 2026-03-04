@@ -21,27 +21,66 @@ public class ProductsController {
         List list = dao.getByPage(pagination.getOffset(), pagination.getRowPerPage());
         ProductsView.showProductTable(list, pagination);
     }
-    public void writeProduct(){
-        try {
-            int nextId = dao.getNextId();
-            System.out.println("Product ID: " + nextId);
-            String name = InputUtil.readNonEmpty("Enter Name: ");
-            double price = InputUtil.readDouble("Enter Unit Price: ");
-            int qty = InputUtil.readInt("Enter qty: ");
+    public void writeProduct() {
 
-            if (name.isEmpty()) throw Validation.emptyName();
-            if (price <= 0) throw Validation.invalidPrice();
-            if (qty <= 0) throw Validation.invalidQty();
-            Products newProduct = new Products(name, price, qty);
-            //add time
-            newProduct.setImportDate(java.time.LocalDate.now());
-            //add nextId
-            newProduct.setId(nextId);
-            dao.addToInsertBuffer(newProduct);
-        }catch (Validation e){
-            ProductsView.showErrorMessage(e.getMessage());
+        int nextId = dao.getNextId();
+        System.out.println("Product ID: " + nextId);
+
+        String name = null;
+        double price = 0;
+        int qty = 0;
+
+        while (true) {
+            try {
+                name = InputUtil.readNonEmpty("Enter Name: ");
+
+                if (name.isEmpty()) {
+                    throw Validation.emptyName();
+                }
+
+                if (!name.matches("^[a-zA-Z0-9 ]+$")) {
+                    throw Validation.invalidNameFormat();
+                }
+
+                break;
+            } catch (Validation e) {
+                ProductsView.showErrorMessage(e.getMessage());
+            }
         }
 
+        while (true) {
+            try {
+                price = InputUtil.readDouble("Enter Unit Price: ");
+
+                if (price <= 0) {
+                    throw Validation.invalidPrice();
+                }
+
+                break;
+            } catch (Validation e) {
+                ProductsView.showErrorMessage(e.getMessage());
+            }
+        }
+
+        while (true) {
+            try {
+                qty = InputUtil.readInt("Enter Qty: ");
+
+                if (qty <= 0) {
+                    throw Validation.invalidQty();
+                }
+
+                break;
+            } catch (Validation e) {
+                ProductsView.showErrorMessage(e.getMessage());
+            }
+        }
+
+        Products newProduct = new Products(name, price, qty);
+        newProduct.setImportDate(java.time.LocalDate.now());
+        newProduct.setId(nextId);
+
+        dao.addToInsertBuffer(newProduct);
     }
     public void readProductById(){
         try {
