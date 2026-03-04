@@ -35,6 +35,11 @@ public class SaveController {
     }
 
     public void unsaveUpdate() { // VIEW ONLY
-
+        List buf = dao.getUpdateBuffer();
+        if(buf.isEmpty()){
+            ProductsView.showErrorMessage("No pending updates.");
+            return;
+        }
+        ProductsView.showUpdateBuffer(buf);
     }
 }
