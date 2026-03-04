@@ -23,7 +23,7 @@ public class BackupController {
 
         // get next version
         int version = (dir.list() != null) ? dir.list().length + 1 : 1;
-        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         //combine full path
         String fileName = pathInSrc + "/Version" + version + "-products-backup-" + date + ".sql";

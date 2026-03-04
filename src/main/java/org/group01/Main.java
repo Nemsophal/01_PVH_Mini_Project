@@ -73,8 +73,8 @@ public class Main {
                     System.out.print("Page number: ");
                     pagination.goToPage(new Scanner(System.in).nextInt());
                 }
-                case "Ba"-> bc.backup();
-                case "Re"-> bc.restore();
+                case "BA"-> bc.backup();
+                case "RE"-> bc.restore();
 //                case "Rc"-> bc.recovery();
                 case "E" -> {
                     MenuView.showGoodbye();
