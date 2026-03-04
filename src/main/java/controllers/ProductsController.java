@@ -44,6 +44,13 @@ public class ProductsController {
 
     }
     public void readProductById(){
-
+        try {
+            int id = InputUtil.readInt("Please input id to get record : ");
+            Products p = dao.findById(id);
+            if(p == null) throw Validation.idNotFound(id);
+            ProductsView.showSingleProduct(p);
+        } catch (Validation e) {
+            System.out.println(e.getMessage()); }
+        InputUtil.pressEnterToContinue();
     }
 }
