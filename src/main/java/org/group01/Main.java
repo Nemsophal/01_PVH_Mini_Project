@@ -18,7 +18,7 @@ public class Main {
         UpdateDeleteController udc = new UpdateDeleteController(dao, pagination);
         SearchController sc = new SearchController(dao, pagination);
         SaveController svc = new SaveController(dao);
-
+        BackupController bc = new BackupController(dao);
 
         while (true) {
             pc.displayProducts();
@@ -73,8 +73,8 @@ public class Main {
                     System.out.print("Page number: ");
                     pagination.goToPage(new Scanner(System.in).nextInt());
                 }
-//                case "Ba"-> bc.backup();
-//                case "Re"-> bc.restore();
+                case "Ba"-> bc.backup();
+                case "Re"-> bc.restore();
 //                case "Rc"-> bc.recovery();
                 case "E" -> {
                     MenuView.showGoodbye();
