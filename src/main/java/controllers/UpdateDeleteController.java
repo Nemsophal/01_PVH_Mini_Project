@@ -5,6 +5,7 @@ import models.Products;
 import models.dao.ProductDaoI;
 import models.Pagination;
 import util.*;
+import views.Color;
 import views.ProductsView;
 
 import java.util.Scanner;
@@ -205,26 +206,26 @@ public class UpdateDeleteController {
                 id = Integer.parseInt(input);
 
                 if (id <= 0) {
-                    System.out.println("ID must be a positive number.");
+                    System.out.println(Color.RED.code() + "ID must be a positive number." + Color.RESET.code());
                     continue;
                 }
 
                 break;
 
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter numbers only.");
+                System.out.println(Color.RED.code() + "Invalid input. Please enter numbers only." + Color.RESET.code());
             }
         }
 
         Products product = dao.findById(id);
 
         if (product == null) {
-            System.out.println("Product with ID " + id + " does not exist.");
+            System.out.println(Color.RED.code() + "Product with ID " + id + " does not exist." + Color.RESET.code());
             InputUtil.pressEnterToContinue();
             return;
         }
 
-        System.out.print("Are you sure you want to delete this product? (y/n): ");
+        System.out.print(Color.YELLOW.code() + "Are you sure you want to delete this product? (y/n): " + Color.RESET.code());
         String confirm = scanner.next();
 
         if (confirm.equalsIgnoreCase("y")) {
@@ -232,14 +233,14 @@ public class UpdateDeleteController {
             boolean deleted = dao.delete(id);
 
             if (deleted) {
-                System.out.println("Product deleted successfully.");
+                System.out.println(Color.GREEN.code() + "Product deleted successfully." + Color.RESET.code());
                 InputUtil.pressEnterToContinue();
             } else {
-                System.out.println("Product not found.");
+                System.out.println(Color.RED.code() + "Product not found." + Color.RESET.code());
                 InputUtil.pressEnterToContinue();
             }
         } else {
-            System.out.println("Deletion cancelled.");
+            System.out.println(Color.YELLOW.code() +"Deletion cancelled." + Color.RESET.code());
             InputUtil.pressEnterToContinue();
         }
     }

@@ -17,6 +17,7 @@ public class SearchController {
         List result = dao.search(keyword);
         if(result.isEmpty()){
             ProductsView.showErrorMessage("Not found: "+keyword);
+            InputUtil.pressEnterToContinue();
             return;
         }
         pagination.recalcTotalPage(result.size());
