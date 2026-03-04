@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class ProductDao implements ProductDaoI{
     private List<Products> insertBuffer = new ArrayList<>();
     private List<Products> updateBuffer = new ArrayList<>();
-    // Initialize props by calling your util class
     private Properties props = util.CredentialsLoader.loadProperties();
 
     private Products mapRow(ResultSet rs) throws SQLException{
@@ -51,20 +51,30 @@ public class ProductDao implements ProductDaoI{
         return list;
     }
 
-    @Override
-    public Products findById(int id) {
+    @Override public Products findById(int id) {
+        try { PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("SELECT * FROM products WHERE id=?");
+            ps.setInt(1,id); ResultSet rs = ps.executeQuery();
+            if (rs.next()) return mapRow(rs);
+        } catch (SQLException e) { System.out.println(e.getMessage()); }
         return null;
     }
 
     @Override
     public List<Products> search(String keyword) {
-        return List.of();
+        List list = new ArrayList<>();
+        try { PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("SELECT * FROM products WHERE name ILIKE ?");
+            ps.setString(1,"%"+keyword+"%"); ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        } catch (SQLException e) { System.out.println(e.getMessage()); }
+        return list;
     }
 
     @Override
     public int getTotalRow() {
         try { ResultSet rs = DBConnection.getConnection()
-                .prepareStatement("SELECT * FROM products").executeQuery();
+                .prepareStatement("SELECT COUNT(*) FROM products").executeQuery();
             if (rs.next()) return rs.getInt(1);
 
         }catch (SQLException e){
@@ -74,11 +84,33 @@ public class ProductDao implements ProductDaoI{
     }
 
     @Override
+    public int getSpecificPage(int p) {
+        System.out.print("Page number: ");
+        return new Scanner(System.in).nextInt();
+    }
+
+    @Override
     public void addToInsertBuffer(Products p) {
         insertBuffer.add(p);
 
     }
+    @Override
+    public int getNextId() {
+        int maxId = 0;
+        try (Connection conn = DBConnection.getConnection();
+             ResultSet rs = conn.prepareStatement("SELECT MAX(id) FROM products").executeQuery()) {
+            if (rs.next()) {
+                maxId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
+        for (Products p : insertBuffer) {
+            if (p.getId() > maxId) maxId = p.getId();
+        }
+        return maxId + 1;
+    }
     @Override
     public List<Products> getInsertBuffer() {
         return insertBuffer;
@@ -102,8 +134,9 @@ public class ProductDao implements ProductDaoI{
     }
 
     @Override
-    public void addToUpdateBuffer(Products p) {
-
+    public void addToUpdateBuffer(Products product) {
+        updateBuffer.removeIf(p -> p.getId() == product.getId());
+        updateBuffer.add(product);
     }
 
     @Override public List getUpdateBuffer() { return updateBuffer; }
@@ -151,7 +184,6 @@ public class ProductDao implements ProductDaoI{
 
         String dbName = extractDbName(url);
         try {
-            // Use your specific Homebrew path here
             ProcessBuilder pb = new ProcessBuilder(
                     "/opt/homebrew/bin/pg_dump",
                     "-U", user,
@@ -162,7 +194,6 @@ public class ProductDao implements ProductDaoI{
 
             Process process = pb.start();
 
-            // This part is vital: read why it failed if exit code != 0
             if (process.waitFor() == 0) {
                 System.out.println("Backup Success!");
             } else {
@@ -180,7 +211,7 @@ public class ProductDao implements ProductDaoI{
         String pass = props.getProperty("db.password");
         String url = props.getProperty("db.url");
 
-        // ADD THIS SAFETY CHECK TO PREVENT THE CRASH
+        //SAFETY CHECK TO PREVENT THE CRASH
         if (user == null || pass == null || url == null) {
             System.err.println("Restore aborted: Credentials missing from application.properties!");
             return;
@@ -200,12 +231,12 @@ public class ProductDao implements ProductDaoI{
         }
     }
 
-    // Helper to get the DB name from the URL (e.g., jdbc:postgresql://localhost:5432/stock_db)
+
     private String extractDbName(String url) {
         // Check if url is null or empty to prevent NullPointerException
         if (url == null || url.isEmpty()) {
             System.err.println("Database URL is null! Check application.properties.");
-            return "default_db"; // Return a default name so the command doesn't crash
+            return "default_db";
         }
 
         try {

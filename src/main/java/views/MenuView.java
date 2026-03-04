@@ -1,11 +1,35 @@
 package views;
 public class MenuView {
     public static void showMainMenu() {
+
         System.out.println("-------------------------------------------------- Menu -------------------------------------------------");
-        System.out.println("   N. Next Page      P. Previous Page    F. First Page    L. Last Page    G. Goto");
+
+        System.out.println("   "
+                + Color.GREEN.code() + "N." + Color.RESET.code() + " Next Page      "
+                + Color.GREEN.code() + "P." + Color.RESET.code() + " Previous Page    "
+                + Color.GREEN.code() + "F." + Color.RESET.code() + " First Page    "
+                + Color.GREEN.code() + "L." + Color.RESET.code() + " Last Page    "
+                + Color.GREEN.code() + "G." + Color.RESET.code() + " Goto");
+
         System.out.println();
-        System.out.println("W) Write          R) Read (id)       U) Update        D) Delete        S) Search (name)    Se) Set rows");
-        System.out.println("sa) Save          Un) Unsaved        Ba) Backup       Re) Restore      E) Exit");
+
+        System.out.println(
+                Color.GREEN.code() + "W)" + Color.RESET.code() + " Write          "
+                        + Color.GREEN.code() + "R)" + Color.RESET.code() + " Read (id)       "
+                        + Color.GREEN.code() + "U)" + Color.RESET.code() + " Update        "
+                        + Color.GREEN.code() + "D)" + Color.RESET.code() + " Delete        "
+                        + Color.GREEN.code() + "S)" + Color.RESET.code() + " Search (name)    "
+                        + Color.GREEN.code() + "Se)" + Color.RESET.code() + " Set rows"
+        );
+
+        System.out.println(
+                Color.GREEN.code() + "Sa)" + Color.RESET.code() + " Save          "
+                        + Color.GREEN.code() + "Un)" + Color.RESET.code() + " Unsaved        "
+                        + Color.GREEN.code() + "Ba)" + Color.RESET.code() + " Backup       "
+                        + Color.GREEN.code() + "Re)" + Color.RESET.code() + " Restore      "
+                        + Color.GREEN.code() + "E)" + Color.RESET.code() + " Exit"
+        );
+
         System.out.println("---------------------------------------------------------------------------------------------------------");
     }
     public static void showGoodbye() {
