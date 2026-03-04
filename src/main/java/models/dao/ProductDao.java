@@ -108,7 +108,7 @@ public class ProductDao implements ProductDaoI{
 
     @Override
     public void addToUpdateBuffer(Products p) {
-
+        updateBuffer.add(p);
     }
 
     @Override public List getUpdateBuffer() { return updateBuffer; }
