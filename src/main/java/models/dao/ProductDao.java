@@ -126,6 +126,8 @@ public class ProductDao implements ProductDaoI{
         } catch (SQLException e) { System.out.println(e.getMessage()); }
     }
 
+
+
     @Override
     public void clearInsertBuffer() {
 
