@@ -44,6 +44,7 @@ public class UpdateDeleteController {
 
         if (product == null) {
             System.out.println("Product with ID " + id + " does not exist.");
+            InputUtil.pressEnterToContinue();
             return;
         }
 
@@ -219,6 +220,7 @@ public class UpdateDeleteController {
 
         if (product == null) {
             System.out.println("Product with ID " + id + " does not exist.");
+            InputUtil.pressEnterToContinue();
             return;
         }
 
