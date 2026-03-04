@@ -23,12 +23,15 @@ public class SaveController {
         ProductsView.showSuccessMessage("All new products saved to database!");
     }
 
+
     public void saveUpdate() {
 
     }
 
     public void unsaveInsert() { // VIEW ONLY
-
+        List buf = dao.getInsertBuffer();
+        if(buf.isEmpty()){ProductsView.showErrorMessage("No pending inserts.");return;}
+        ProductsView.showInsertBuffer(buf); // just show
     }
 
     public void unsaveUpdate() { // VIEW ONLY
