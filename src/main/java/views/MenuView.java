@@ -35,7 +35,7 @@ public class MenuView {
     public static void showGoodbye() {
         System.out.println();
         System.out.println("Thank you for using Stock Management!");
-        System.out.println("Goodbye! See you next time :)");
+        System.out.println("Goodbye! See you next time.");
         System.out.println();
     }
     public static void showSaveMenu() {

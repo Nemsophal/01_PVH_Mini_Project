@@ -19,7 +19,7 @@ public class Main {
         UpdateDeleteController udc = new UpdateDeleteController(dao, pagination);
         SearchController sc = new SearchController(dao, pagination);
         SaveController svc = new SaveController(dao);
-
+        BackupController bc = new BackupController(dao);
 
         while (true) {
             pc.displayProducts();
@@ -31,10 +31,7 @@ public class Main {
                 case "U" -> udc.updateProduct();
                 case "D" -> udc.deleteProduct();
                 case "S" -> sc.searchProduct();
-                case "SE"-> {
-                    System.out.print("Please input the number of row to display: ");
-                    pagination.setRowPerPage(new Scanner(System.in).nextInt());
-                }
+                case "SE"-> sc.setNumberRow();
                 case "SI"-> svc.saveInsert();
                 case "SA" -> {
                     while (true) {
@@ -77,8 +74,8 @@ public class Main {
                     System.out.print("Page number: ");
                     pagination.goToPage(new Scanner(System.in).nextInt());
                 }
-//                case "Ba"-> bc.backup();
-//                case "Re"-> bc.restore();
+                case "BA"-> bc.backup();
+                case "RE"-> bc.restore();
 //                case "Rc"-> bc.recovery();
                 case "E" -> {
                     MenuView.showGoodbye();
