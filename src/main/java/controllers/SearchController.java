@@ -21,6 +21,7 @@ public class SearchController {
         }
         pagination.recalcTotalPage(result.size());
         ProductsView.showProductTable(result, pagination);
+        InputUtil.pressEnterToContinue();
     }
     public void setNumberRow() {
 
