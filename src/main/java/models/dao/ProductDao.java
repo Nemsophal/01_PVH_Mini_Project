@@ -180,7 +180,9 @@ public class ProductDao implements ProductDaoI{
                     "/opt/homebrew/bin/pg_dump",
                     "-U", user,
                     "-d", dbName,
-                    "-f", fileName
+                    "-f", fileName,
+                    "--clean",
+                    "--if-exists"
             );
             pb.environment().put("PGPASSWORD", pass);
 
@@ -197,26 +199,31 @@ public class ProductDao implements ProductDaoI{
         }
     }
 
+
     @Override
     public void restore(String fileName) {
         String user = props.getProperty("db.user");
         String pass = props.getProperty("db.password");
         String url = props.getProperty("db.url");
-
-        //SAFETY CHECK TO PREVENT THE CRASH
-        if (user == null || pass == null || url == null) {
-            System.err.println("Restore aborted: Credentials missing from application.properties!");
-            return;
-        }
-
         String dbName = extractDbName(url);
-        try {
-            ProcessBuilder pb = new ProcessBuilder("psql", "-U", user, "-d", dbName, "-f", fileName);
-            pb.environment().put("PGPASSWORD", pass);
 
+        try {
+            ProcessBuilder pb = new ProcessBuilder(
+                    "/opt/homebrew/bin/psql",
+                    "-U", user,
+                    "-d", dbName,
+                    "-f", fileName
+            );
+            pb.environment().put("PGPASSWORD", pass);
             Process process = pb.start();
-            if (process.waitFor() == 0) {
-                ProductsView.showSuccessMessage("Database restored from " + fileName);
+
+            String errorMsg = new String(process.getErrorStream().readAllBytes());
+            int exitCode = process.waitFor();
+
+            if (exitCode != 0) {
+                System.err.println("Postgres Error: " + errorMsg);
+            } else {
+                System.out.println("Restore Success!");
             }
         } catch (Exception e) {
             e.printStackTrace();
