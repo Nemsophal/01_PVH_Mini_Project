@@ -62,7 +62,7 @@ public class Pagination {
 
     public void setRowPerPage(int n) {
         if (n > 0){
-            if (n < totalRow) {
+            if (n <= totalRow) {
                 rowPerPage = n;
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter("row_config.txt"))) {
                     writer.write(n);
