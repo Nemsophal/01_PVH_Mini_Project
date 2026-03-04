@@ -1,6 +1,7 @@
 package org.group01;
 
 import controllers.*;
+import db.DBConnection;
 import exceptions.Validation;
 import models.Pagination;
 import models.dao.ProductDaoI;
@@ -10,6 +11,8 @@ import views.Color;
 import views.MenuView;
 import views.ProductsView;
 
+import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -22,6 +25,13 @@ public class Main {
         SearchController sc = new SearchController(dao, pagination);
         SaveController svc = new SaveController(dao);
         BackupController bc = new BackupController(dao);
+
+        try {
+            DBConnection.getConnection();
+        } catch (SQLException e) {
+            System.out.println(Color.RED.code() + "Failed Database Credentials" + Color.RESET.code());
+            return;
+        }
 
         while (true) {
             pc.displayProducts();

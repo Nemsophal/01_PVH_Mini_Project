@@ -21,11 +21,9 @@ public class BackupController {
             dir.mkdirs();
         }
 
-        // get next version
         int version = (dir.list() != null) ? dir.list().length + 1 : 1;
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        //combine full path
         String fileName = pathInSrc + "/Version" + version + "-products-backup-" + date + ".sql";
 
         System.out.println("Saving to src/backup...");
@@ -40,7 +38,7 @@ public class BackupController {
             System.out.println("No backups found in src/backup.");
             return;
         }
-        // List files
+
         for (int i = 0; i < files.length; i++) {
             long kb = files[i].length() / 1024;
             System.out.println((i + 1) + ". " + files[i].getName() + " (" + kb + " KB)");
