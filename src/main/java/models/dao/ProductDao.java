@@ -62,7 +62,13 @@ public class ProductDao implements ProductDaoI{
 
     @Override
     public List<Products> search(String keyword) {
-        return List.of();
+        List list = new ArrayList<>();
+        try { PreparedStatement ps = DBConnection.getConnection()
+                .prepareStatement("SELECT * FROM products WHERE name ILIKE ?");
+            ps.setString(1,"%"+keyword+"%"); ResultSet rs = ps.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        } catch (SQLException e) { System.out.println(e.getMessage()); }
+        return list;
     }
 
     @Override

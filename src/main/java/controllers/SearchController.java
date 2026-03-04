@@ -1,8 +1,11 @@
 package controllers;
 
+import exceptions.Exceptions;
+import models.*;
 import models.dao.ProductDaoI;
-import models.Pagination;
-
+import util.InputUtil;
+import views.ProductsView;
+import java.util.List;
 public class SearchController {
     private ProductDaoI dao;
     private Pagination pagination;
@@ -10,7 +13,14 @@ public class SearchController {
         this.dao=dao; this.pagination=pagination;
     }
     public void searchProduct() {
-
+        String keyword = InputUtil.readNonEmpty(" Enter name to search : ");
+        List result = dao.search(keyword);
+        if(result.isEmpty()){
+            ProductsView.showErrorMessage("Not found: "+keyword);
+            return;
+        }
+        pagination.recalcTotalPage(result.size());
+        ProductsView.showProductTable(result, pagination);
     }
     public void setNumberRow() {
 
