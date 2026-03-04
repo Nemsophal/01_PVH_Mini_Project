@@ -63,18 +63,15 @@ public class Pagination {
     }
 
     public void setRowPerPage(int n) {
-        if (n > 0){
-            if (n <= totalRow) {
-                rowPerPage = n;
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("row_config.txt"))) {
-                    writer.write(String.valueOf(n));
-                    System.out.println("Row was set successfully!");
-                }catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else {
-                System.out.println("Number of row must be smaller than the total records!");
-                InputUtil.pressEnterToContinue();
+        if (n > 0) {
+            rowPerPage = n;
+            recalcTotalPage(totalRow);
+            currentPage = 1;
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("row_config.txt"))) {
+                writer.write(String.valueOf(n));
+                System.out.println("Row was set successfully!");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
         } else {
             System.out.println("Number of row must be positive!");
