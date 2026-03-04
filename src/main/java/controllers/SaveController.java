@@ -18,14 +18,18 @@ public class SaveController {
             System.out.println("empty");
             return;
         }
-        ProductsView.showInsertBuffer(buf);
         dao.saveInsertBuffer();
+        ProductsView.showInserted(buf);
         ProductsView.showSuccessMessage("All new products saved to database!");
     }
 
 
     public void saveUpdate() {
-
+        List buf = dao.getUpdateBuffer();
+        if(buf.isEmpty()){ProductsView.showErrorMessage("No updates to save!");return;}
+        ProductsView.showUpdateBuffer(buf);
+        dao.saveUpdateBuffer();
+        ProductsView.showSuccessMessage("All updates saved to database!");
     }
 
     public void unsaveInsert() { // VIEW ONLY
@@ -35,6 +39,11 @@ public class SaveController {
     }
 
     public void unsaveUpdate() { // VIEW ONLY
-
+        List buf = dao.getUpdateBuffer();
+        if(buf.isEmpty()){
+            ProductsView.showErrorMessage("No pending updates.");
+            return;
+        }
+        ProductsView.showUpdateBuffer(buf);
     }
 }

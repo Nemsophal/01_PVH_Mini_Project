@@ -20,6 +20,10 @@ public interface ProductDaoI {
 
     List<Products> getInsertBuffer();
 
+    public default int getNextId() {
+        return 0;
+    }
+
     void saveInsertBuffer();
 
     void clearInsertBuffer();

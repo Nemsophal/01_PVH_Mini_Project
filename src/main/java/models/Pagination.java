@@ -65,7 +65,7 @@ public class Pagination {
             if (n <= totalRow) {
                 rowPerPage = n;
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter("row_config.txt"))) {
-                    writer.write(n);
+                    writer.write(String.valueOf(n));
                     System.out.println("Row was set successfully!");
                 }catch (IOException e) {
                     System.out.println(e.getMessage());
@@ -75,6 +75,17 @@ public class Pagination {
             }
         } else {
             System.out.println("Number of row must be positive!");
+        }
+    }
+    public void loadRowConfig() {
+        File file = new File("row_config.txt");
+        if (file.exists()) {
+            try(Scanner sc = new Scanner(file)) {
+                String savedValue = sc.nextLine();
+                this.rowPerPage = Integer.parseInt(savedValue);
+            }catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

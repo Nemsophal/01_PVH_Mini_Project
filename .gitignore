@@ -30,11 +30,11 @@ target/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
+**/src/main/**/resources/application.properties
 !**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
 
 ### Mac OS ###
-.DS_Storeapplication.properties
-**/src/main/**/resources/application.properties
+.DS_Store
