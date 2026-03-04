@@ -1,5 +1,7 @@
 package models;
 
+import util.InputUtil;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -72,6 +74,7 @@ public class Pagination {
                 }
             } else {
                 System.out.println("Number of row must be smaller than the total records!");
+                InputUtil.pressEnterToContinue();
             }
         } else {
             System.out.println("Number of row must be positive!");

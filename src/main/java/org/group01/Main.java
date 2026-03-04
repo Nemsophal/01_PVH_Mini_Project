@@ -31,9 +31,29 @@ public class Main {
                 case "U" -> udc.updateProduct();
                 case "D" -> udc.deleteProduct();
                 case "S" -> sc.searchProduct();
-                case "SE"-> {
-                    System.out.print("Please input number of row to display: ");
-                    pagination.setRowPerPage(new Scanner(System.in).nextInt());
+                case "SE" -> {
+                    Scanner scanner = new Scanner(System.in);
+                    int rows;
+
+                    while (true) {
+                        System.out.print("Please input number of rows to display: ");
+                        String input = scanner.nextLine();
+
+                        try {
+                            rows = Integer.parseInt(input);
+
+                            if (rows <= 0) {
+                                System.out.println("Number must be greater than 0.");
+                                continue;
+                            }
+
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Please enter numbers only.");
+                        }
+                    }
+
+                    pagination.setRowPerPage(rows);
                 }
                 case "SI"-> svc.saveInsert();
                 case "SA" -> {
