@@ -29,7 +29,10 @@ public class Main {
                 case "U" -> udc.updateProduct();
                 case "D" -> udc.deleteProduct();
                 case "S" -> sc.searchProduct();
-                case "Se"-> sc.setNumberRow();
+                case "Se"-> {
+                    System.out.print("Please input number of row to display: ");
+                    pagination.setRowPerPage(new Scanner(System.in).nextInt());
+                }
                 case "si"-> svc.saveInsert();
                 case "sa" -> {
                     while (true) {

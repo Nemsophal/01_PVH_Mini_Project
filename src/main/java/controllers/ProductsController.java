@@ -10,8 +10,8 @@ import views.ProductsView;
 import java.util.List;
 
 public class ProductsController {
-    private ProductDaoI dao;
-    private Pagination pagination;
+    private final ProductDaoI dao;
+    private final Pagination pagination;
     public ProductsController(ProductDaoI dao, Pagination pagination) {
         this.dao = dao;
         this.pagination = pagination;
