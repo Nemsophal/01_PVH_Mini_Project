@@ -39,21 +39,9 @@ public class MenuView {
         System.out.println();
     }
     public static void showSaveMenu() {
-        System.out.println("╔══════════════════════════════╗");
-        System.out.println("║          SAVE MENU           ║");
-        System.out.println("╠══════════════════════════════╣");
-        System.out.println("║  [si] Save Insert            ║");
-        System.out.println("║  [su] Save Update            ║");
-        System.out.println("║  [B]  Back                   ║");
-        System.out.println("╚══════════════════════════════╝");
+        System.out.println(Color.GREEN.code()+"(si)"+Color.RESET.code() +" for saving insert products and "+Color.GREEN.code()+"(su)" + Color.RESET.code()+" for saving update products or "+Color.RED.code()+"(b)"+Color.RESET.code()+ " for back to menu "+Color.RESET.code());
     }
     public static void showUnSaveMenu() {
-        System.out.println("╔══════════════════════════════╗");
-        System.out.println("║          UNSAVE MENU         ║");
-        System.out.println("╠══════════════════════════════╣");
-        System.out.println("║  [ui] UnSave Insert          ║");
-        System.out.println("║  [uu] UnSave Update          ║");
-        System.out.println("║  [b]  Back                   ║");
-        System.out.println("╚══════════════════════════════╝");
+        System.out.println(Color.GREEN.code()+"(ui)"+Color.RESET.code() +" for viewing insert products and "+Color.GREEN.code()+"(uu)" + Color.RESET.code()+" for viewing update products or "+Color.RED.code()+"(b)"+Color.RESET.code()+ " for back to menu "+Color.RESET.code());
     }
 }

@@ -116,21 +116,28 @@ public class ProductDao implements ProductDaoI{
         return insertBuffer;
     }
 
-    @Override public void saveInsertBuffer() {
-        try { PreparedStatement ps = DBConnection.getConnection()
-                .prepareStatement("INSERT INTO products (name,unit_price,qty) VALUES (?,?,?)");
+    @Override
+    public void saveInsertBuffer() {
+        String sql = "INSERT INTO products (name, unit_price, qty) VALUES (?, ?, ?)";
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             for (Products p : insertBuffer) {
-                ps.setString(1,p.getName()); ps.setDouble(2,p.getUnitPrice());
-                ps.setInt(3,p.getQty()); ps.executeUpdate();
-            } clearInsertBuffer();
-        } catch (SQLException e) { System.out.println(e.getMessage()); }
+                ps.setString(1, p.getName());
+                ps.setDouble(2, p.getUnitPrice());
+                ps.setInt(3, p.getQty());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            this.insertBuffer.clear();
+        } catch (SQLException e) {
+            System.out.println("Insert Error: " + e.getMessage());
+        }
     }
 
 
 
     @Override
     public void clearInsertBuffer() {
-
+        this.insertBuffer.clear();
     }
 
     @Override
@@ -139,22 +146,31 @@ public class ProductDao implements ProductDaoI{
         updateBuffer.add(product);
     }
 
-    @Override public List getUpdateBuffer() { return updateBuffer; }
+    @Override public List getUpdateBuffer() {
+        return updateBuffer;
+    }
 
-    @Override public void saveUpdateBuffer() {
-        try { PreparedStatement ps = DBConnection.getConnection()
-                .prepareStatement("UPDATE products SET name=?,unit_price=?,qty=? WHERE id=?");
+    public void saveUpdateBuffer() {
+        String sql = "UPDATE products SET name=?, unit_price=?, qty=? WHERE id=?";
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             for (Products p : updateBuffer) {
-                ps.setString(1,p.getName()); ps.setDouble(2,p.getUnitPrice());
-                ps.setInt(3,p.getQty()); ps.setInt(4,p.getId()); ps.executeUpdate();
-            } clearUpdateBuffer();
-        } catch (SQLException e) { System.out.println(e.getMessage()); }
+                ps.setString(1, p.getName());
+                ps.setDouble(2, p.getUnitPrice());
+                ps.setInt(3, p.getQty());
+                ps.setInt(4, p.getId());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            this.updateBuffer.clear();
+        } catch (SQLException e) {
+            System.out.println("Update Error: " + e.getMessage());
+        }
     }
 
 
     @Override
     public void clearUpdateBuffer() {
-
+        this.updateBuffer.clear();
     }
 
 

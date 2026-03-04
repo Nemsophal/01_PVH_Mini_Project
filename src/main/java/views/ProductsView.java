@@ -71,6 +71,18 @@ public class ProductsView {
         System.out.println(t.render());
         System.out.println();
     }
+    public static void showUpdated(List<Products> list) {
+        System.out.println();
+        if (list.isEmpty()) { showEmptyMessage(); return; }
+        Table t = buildTable();
+        t.addCell(" UPDATED TO PRODUCTS", CENTER, 6);
+        addHeader(t);
+        for (Products p : list) {
+            addProductRow(t, p);
+        }
+        System.out.println(t.render());
+        System.out.println();
+    }
     public static void showInserted(List<Products> list) {
         System.out.println();
         if (list.isEmpty()) { showEmptyMessage(); return; }
@@ -114,8 +126,10 @@ public class ProductsView {
     }
 
     public static void showSuccessMessage(String s) {
+        System.out.println(Color.GREEN.code() + s + Color.RESET.code());
     }
 
     public static void showErrorMessage(String s) {
+        System.out.println(Color.RED.code() + s + Color.RESET.code());
     }
 }
