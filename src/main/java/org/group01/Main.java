@@ -43,7 +43,7 @@ public class Main {
                             case "b"  -> System.out.println("Back to main menu.");
                             default   -> System.out.println("Invalid option.");
                         }
-                        if (saveChoice.equals("B")) break;
+                        if (saveChoice.equalsIgnoreCase("b")) break;
                         InputUtil.pressEnterToContinue();
                     }
                 }
