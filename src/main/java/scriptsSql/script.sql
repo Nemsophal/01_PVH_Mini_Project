@@ -1,6 +1,7 @@
 -- Run in PostgreSQL
 CREATE DATABASE stock_db;
-\c stock_db;
+
+
 CREATE TABLE products (
 id SERIAL PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
