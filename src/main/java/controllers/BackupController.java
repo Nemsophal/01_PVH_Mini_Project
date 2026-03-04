@@ -47,7 +47,7 @@ public class BackupController {
         }
         int choice;
         while (true) {
-            choice = util.InputUtil.readInt("Select version (1-" + files.length + "): ");
+            choice = util.InputUtil.readInt("Select version: ");
             if (choice >= 1 && choice <= files.length) {
                 break;
             }
