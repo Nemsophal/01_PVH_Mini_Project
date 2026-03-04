@@ -25,7 +25,11 @@ public class SaveController {
 
 
     public void saveUpdate() {
-
+        List buf = dao.getUpdateBuffer();
+        if(buf.isEmpty()){ProductsView.showErrorMessage("No updates to save!");return;}
+        ProductsView.showUpdateBuffer(buf);
+        dao.saveUpdateBuffer();
+        ProductsView.showSuccessMessage("All updates saved to database!");
     }
 
     public void unsaveInsert() { // VIEW ONLY
