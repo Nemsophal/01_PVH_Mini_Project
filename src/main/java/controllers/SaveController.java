@@ -1,8 +1,10 @@
 package controllers;
 
+import models.Products;
 import models.dao.ProductDaoI;
 import views.ProductsView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SaveController {
@@ -15,30 +17,37 @@ public class SaveController {
     public void saveInsert() {
         List buf = dao.getInsertBuffer();
         if (buf.isEmpty()) {
-            System.out.println("empty");
+            ProductsView.showErrorMessage("No new products to save!");
             return;
         }
+        List snapshot = new ArrayList<>(buf);
         dao.saveInsertBuffer();
-        ProductsView.showInserted(buf);
-        ProductsView.showSuccessMessage("All new products saved to database!");
+        ProductsView.showInserted(snapshot);
+        ProductsView.showSuccessMessage("New products saved to database");
     }
-
 
     public void saveUpdate() {
         List buf = dao.getUpdateBuffer();
-        if(buf.isEmpty()){ProductsView.showErrorMessage("No updates to save!");return;}
-        ProductsView.showUpdateBuffer(buf);
+        if (buf.isEmpty()) {
+            ProductsView.showErrorMessage("No updates to save!");
+            return;
+        }
+        List snapshot = new ArrayList<>(buf);
         dao.saveUpdateBuffer();
-        ProductsView.showSuccessMessage("All updates saved to database!");
+        ProductsView.showUpdated(snapshot);
+
+        for (int j = 0; j < snapshot.size(); j++) {
+            ProductsView.showSuccessMessage("Product " + (j + 1) + " successfully updated.");
+        }
     }
 
-    public void unsaveInsert() { // VIEW ONLY
+    public void unsaveInsert() {
         List buf = dao.getInsertBuffer();
         if(buf.isEmpty()){ProductsView.showErrorMessage("No pending inserts.");return;}
-        ProductsView.showInsertBuffer(buf); // just show
+        ProductsView.showInsertBuffer(buf);
     }
 
-    public void unsaveUpdate() { // VIEW ONLY
+    public void unsaveUpdate() {
         List buf = dao.getUpdateBuffer();
         if(buf.isEmpty()){
             ProductsView.showErrorMessage("No pending updates.");
