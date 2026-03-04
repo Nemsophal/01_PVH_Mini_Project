@@ -1,12 +1,14 @@
 package org.group01;
 
 import controllers.*;
+import exceptions.Validation;
 import models.Pagination;
 import models.dao.ProductDaoI;
 import models.dao.ProductDao;
 import util.InputUtil;
 import views.Color;
 import views.MenuView;
+import views.ProductsView;
 
 import java.util.Scanner;
 
@@ -94,8 +96,32 @@ public class Main {
                 case "F" -> pagination.goFirst();
                 case "L" -> pagination.goLast();
                 case "G" -> {
-                    System.out.print("Page number: ");
-                    pagination.goToPage(new Scanner(System.in).nextInt());
+                    Scanner scanner = new Scanner(System.in);
+                    int page;
+
+                    while (true) {
+                        try {
+                            System.out.print("Page number: ");
+                            String input = scanner.nextLine();
+
+                            // Only digits
+                            if (!input.matches("\\d+")) {
+                                throw new Validation("Page must be a number!");
+                            }
+
+                            page = Integer.parseInt(input);
+
+                            if (page <= 0) {
+                                throw new Validation("Page number must be greater than 0!");
+                            }
+
+                            pagination.goToPage(page);
+                            break;
+
+                        } catch (Validation e) {
+                            ProductsView.showErrorMessage(e.getMessage());
+                        }
+                    }
                 }
                 case "BA"-> bc.backup();
                 case "RE"-> bc.restore();
