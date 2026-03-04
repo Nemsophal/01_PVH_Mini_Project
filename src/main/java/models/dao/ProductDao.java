@@ -256,7 +256,6 @@ public class ProductDao implements ProductDaoI{
 
 
     private String extractDbName(String url) {
-        // Check if url is null or empty to prevent NullPointerException
         if (url == null || url.isEmpty()) {
             System.err.println("Database URL is null! Check application.properties.");
             return "default_db";
