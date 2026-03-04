@@ -23,7 +23,4 @@ public class SearchController {
         ProductsView.showProductTable(result, pagination);
         InputUtil.pressEnterToContinue();
     }
-    public void setNumberRow() {
-
-    }
 }
