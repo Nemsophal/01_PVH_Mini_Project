@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
         ProductDaoI dao = new ProductDao();
         Pagination pagination = new Pagination();
+        pagination.loadRowConfig();
         ProductsController pc = new ProductsController(dao, pagination);
         UpdateDeleteController udc = new UpdateDeleteController(dao, pagination);
         SearchController sc = new SearchController(dao, pagination);
