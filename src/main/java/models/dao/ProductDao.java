@@ -185,7 +185,7 @@ public class ProductDao implements ProductDaoI{
         String dbName = extractDbName(url);
         try {
             ProcessBuilder pb = new ProcessBuilder(
-                    "/opt/homebrew/bin/pg_dump",
+                    "pg_dump",
                     "-U", user,
                     "-d", dbName,
                     "-f", fileName,
@@ -217,7 +217,7 @@ public class ProductDao implements ProductDaoI{
 
         try {
             ProcessBuilder pb = new ProcessBuilder(
-                    "/opt/homebrew/bin/psql",
+                    "psql",
                     "-U", user,
                     "-d", dbName,
                     "-f", fileName
