@@ -10,7 +10,6 @@ import org.nocrala.tools.texttablefmt.Table;
 
 import java.util.List;
 public class ProductsView {
-
     private static final CellStyle CENTER = new CellStyle(HorizontalAlign.CENTER);
     private static final CellStyle RIGHT = new CellStyle(HorizontalAlign.RIGHT);
     private static final CellStyle LEFT = new CellStyle(HorizontalAlign.LEFT);
@@ -27,11 +26,11 @@ public class ProductsView {
     }
 
     private static void addHeader(Table t) {
-        t.addCell("ID", CENTER);
-        t.addCell("Name", CENTER);
-        t.addCell("Unit Price", CENTER);
-        t.addCell("Qty", CENTER);
-        t.addCell("Import Date", CENTER);
+        t.addCell(Color.BLUE.code() + "ID" + Color.RESET.code(), CENTER);
+        t.addCell(Color.BLUE.code() + "Name" + Color.RESET.code(), CENTER);
+        t.addCell(Color.BLUE.code() + "Unit Price" + Color.RESET.code(), CENTER);
+        t.addCell(Color.BLUE.code() + "Qty" + Color.RESET.code(), CENTER);
+        t.addCell(Color.BLUE.code() + "Import Date" + Color.RESET.code(), CENTER);
     }
 
     private static void addProductRow(Table t, Products p) {
@@ -58,8 +57,8 @@ public class ProductsView {
             }
         }
 
-        t.addCell("Page : " + pg.getCurrentPage() + " of " + pg.getTotalPage(), CENTER, 2);
-        t.addCell("Total Record : " + pg.getTotalRow(), CENTER, 3);
+        t.addCell("Page : " + Color.YELLOW.code() + pg.getCurrentPage() + Color.RESET.code() + " of " + Color.RED.code() + pg.getTotalPage() + Color.RESET.code(), CENTER, 2);
+        t.addCell("Total Record : " + Color.GREEN.code() + pg.getTotalRow() + Color.RESET.code(), CENTER, 3);
 
         System.out.println(t.render());
     }
@@ -72,7 +71,18 @@ public class ProductsView {
         System.out.println(t.render());
         System.out.println();
     }
-
+    public static void showInserted(List<Products> list) {
+        System.out.println();
+        if (list.isEmpty()) { showEmptyMessage(); return; }
+        Table t = buildTable();
+        t.addCell(" INSERTED TO PRODUCTS", CENTER, 6);
+        addHeader(t);
+        for (Products p : list) {
+            addProductRow(t, p);
+        }
+        System.out.println(t.render());
+        System.out.println();
+    }
     public static void showInsertBuffer(List<Products> list) {
         System.out.println();
         if (list.isEmpty()) { showEmptyMessage(); return; }
