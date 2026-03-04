@@ -88,9 +88,6 @@ public class Main {
                         InputUtil.pressEnterToContinue();
                     }
                 }
-//                case "su"-> svc.saveUpdate();
-//                case "ui"-> svc.unsaveInsert();
-//                case "uu"-> svc.unsaveUpdate();
                 case "N" -> pagination.goNext();
                 case "P" -> pagination.goPrev();
                 case "F" -> pagination.goFirst();
@@ -125,7 +122,6 @@ public class Main {
                 }
                 case "BA"-> bc.backup();
                 case "RE"-> bc.restore();
-//                case "Rc"-> bc.recovery();
                 case "E" -> {
                     MenuView.showGoodbye();
                     return;

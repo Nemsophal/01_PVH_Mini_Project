@@ -21,4 +21,4 @@ INSERT INTO products (name, unit_price, qty, import_date) VALUES
 ('External HDD', 95.00, 20, '2026-03-02'),
 ('Webcam', 60.00, 25, '2026-03-01'),
 ('Headphones', 75.25, 18, '2026-03-03'),
-('Speaker', 110.00, 12, NULL);
+('Speaker', 110.00, 12, '2026-03-03');
